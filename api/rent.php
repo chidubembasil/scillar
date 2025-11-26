@@ -23,7 +23,7 @@
         }
 
         // Fetch the property
-        $rent = $trippListing->findOne([
+        $rent = $scillarListing->findOne([
             'Listing_id' => $id
         ]);
 

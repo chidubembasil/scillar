@@ -73,7 +73,7 @@
         ];
 
         // Find paginated
-        $cursor = $trippListing->find(
+        $cursor = $scillarListing->find(
             $query,
             [
                 "sort" => ["_id" => -1],
@@ -85,7 +85,7 @@
         $results = iterator_to_array($cursor);
 
         // Count for pagination
-        $totalDocs = $trippListing->countDocuments($query);
+        $totalDocs = $scillarListing->countDocuments($query);
         $totalPages = ceil($totalDocs / $limit);
 
         // Publish to Ably
@@ -121,7 +121,7 @@
     ============================================================ */
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-        $cursor = $trippListing->find(
+        $cursor = $scillarListing->find(
             [],
             [
                 "sort" => ["_id" => -1],
@@ -133,7 +133,7 @@
         $results = iterator_to_array($cursor);
 
         // Count all
-        $totalDocs = $trippListing->countDocuments([]);
+        $totalDocs = $scillarListing->countDocuments([]);
         $totalPages = ceil($totalDocs / $limit);
 
         echo json_encode([

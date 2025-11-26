@@ -33,7 +33,7 @@
                 exit;
             }
 
-            $user = $trippUser->findOne(["email" => $email]);
+            $user = $scillarUser->findOne(["email" => $email]);
 
             if (!$user) {
                 echo json_encode([
@@ -47,7 +47,7 @@
             $newPass = substr(str_shuffle("ABCDEFGHJKMNPQRSTUVWXYZ23456789"), 0, 8);
 
             // Update in DB
-            $trippUser->updateOne(
+            $scillarUser->updateOne(
                 ["email" => $email],
                 ['$set' => ["password" => password_hash($newPass, PASSWORD_DEFAULT)]]
             );
@@ -68,11 +68,11 @@
                 $mail->SMTPSecure = "tls";
                 $mail->Port       = 587;
 
-                $mail->setFrom("no-reply@nome.com", "Tripp Support");
+                $mail->setFrom("no-reply@nome.com", "scillar Support");
                 $mail->addAddress($email);
 
                 $mail->isHTML(true);
-                $mail->Subject = "Your Password Reset - Tripp";
+                $mail->Subject = "Your Password Reset - scillar";
                 $mail->Body = "
                     <h3>Password Reset Successful</h3>
                     <p>Your new password is:</p>
@@ -106,7 +106,7 @@
                 exit;
             }
 
-            $user = $trippUser->findOne(["email" => $email]);
+            $user = $scillarUser->findOne(["email" => $email]);
 
             if (!$user) {
                 echo json_encode(["status" => "error", "message" => "User not found"]);
@@ -142,7 +142,7 @@
                 exit;
             }
 
-            $exists = $trippUser->findOne(["email" => $email]);
+            $exists = $scillarUser->findOne(["email" => $email]);
 
             if ($exists) {
                 echo json_encode(["status" => "error", "message" => "Email already exists"]);
@@ -154,7 +154,7 @@
             $name = ucwords(preg_replace("/[\._\d]/", " ", $username));
             $userId = uniqid();
 
-            $insert = $trippUser->insertOne([
+            $insert = $scillarUser->insertOne([
                 "_id" => $userId,
                 "name" => $name,
                 "email" => $email,
@@ -207,7 +207,7 @@
             'zipCode' => $data['zipCode'],
         ];
 
-        $update = $trippUser->updateOne(
+        $update = $scillarUser->updateOne(
             ['email' => $email],
             ['$set' => $updateData]
         );

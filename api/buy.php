@@ -22,7 +22,7 @@
         }
 
         // Fetch the property
-        $buy = $trippListing->findOne([
+        $buy = $scillarListing->findOne([
             'Listing_id' => $id
         ]);
 

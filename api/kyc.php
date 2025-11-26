@@ -90,7 +90,7 @@
         // ----------------------------
         // Save to MongoDB
         // ----------------------------
-        $trippKyc->insertOne(array_merge($data, $uploads, [
+        $scillarKyc->insertOne(array_merge($data, $uploads, [
             'kycId' => $kycId,
             'userId' => $userId,
             'status' => $isVerified ? 'Verified' : 'Rejected',

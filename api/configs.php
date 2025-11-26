@@ -7,30 +7,30 @@
     header("Access-Control-Allow-Headers: *");
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-    // Get environment variables
+   /*  // Get environment variables
     $username = getenv('MONGO_USERNAME');
     $password = getenv('MONGO_PASSWORD');
 
     // Debug: check if PHP can read them
     var_dump($username);
-    var_dump($password);
+    var_dump($password); */
 
     // URL-encode password in case it contains special characters
     $encodedPassword = urlencode($password);
 
     // Connect to MongoDB
     $client = new MongoDB\Client(
-        "mongodb+srv://$username:$encodedPassword@trippdb.ne0tccv.mongodb.net/?appName=trippDB"
+        "mongodb+srv://okoro9115_db_user:xihim7jikYx55APu@scillar.2y1ablb.mongodb.net/"
     );
 
     // Select database and collections
-    $tripp = $client->tripp;
-    $trippUser = $tripp->users;
-    $trippTransaction = $tripp->transactions;
-    $trippListing = $tripp->listing;
-    $trippFav = $tripp->favourite;
-    $trippNotifications = $tripp ->notification;
-    $trippKyc = $tripp->kyc;
+    $scillar = $client->scillar;
+    $scillarUser = $scillar->users;
+    $scillarTransaction = $scillar->transactions;
+    $scillarListing = $scillar->listing;
+    $scillarFav = $scillar->favourite;
+    $scillarNotifications = $scillar ->notification;
+    $scillarKyc = $scillar->kyc;
 
     try {
         $client->listDatabases();

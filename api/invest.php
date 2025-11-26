@@ -21,7 +21,7 @@
         }
 
         // Fetch the property
-        $invest = $trippListing->findOne([
+        $invest = $scillarListing->findOne([
             'Listing_id' => $id
         ]);
 

@@ -24,8 +24,8 @@
         // Create case-insensitive regex
         $regex = new Regex($search, "i");
 
-        // Query trippListings collection
-        $listings = $trippListings->find([
+        // Query scillarListings collection
+        $listings = $scillarListings->find([
             '$or' => [
                 ["address" => $regex],
                 ["city" => $regex],
@@ -43,7 +43,7 @@
 
     // Optional: handle GET to fetch all listings
     if($_SERVER["REQUEST_METHOD"] === "GET"){
-        $listings = $trippListings->find([], ["sort"=>["_id"=>-1]]);
+        $listings = $scillarListings->find([], ["sort"=>["_id"=>-1]]);
         echo json_encode([
             "status"=>"success",
             "data"=>iterator_to_array($listings)

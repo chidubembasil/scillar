@@ -1,7 +1,7 @@
 <?php
     require "configs.php";
     session_start();
-    
+
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: *");
@@ -31,7 +31,7 @@
         'created_at' => new MongoDB\BSON\UTCDateTime()
     ];
 
-    $result = $trippNotifications->insertOne($notification);
+    $result = $scillarNotifications->insertOne($notification);
 
     // --- Publish to Ably for real-time updates ---
     $channelName = "user:notifications:$userId";

@@ -29,7 +29,7 @@
         }
 
         // Prevent duplicate favorites
-        $existing = $trippFav->findOne([
+        $existing = $scillarFav->findOne([
             "Listing_id" => $listingId,
             "userId" => $userId
         ]);
@@ -43,7 +43,7 @@
         }
 
         // Fetch the property
-        $property = $trippListing->findOne([
+        $property = $scillarListing->findOne([
             "Listing_id" => $listingId
         ]);
 
@@ -64,7 +64,7 @@
         $propertyArr['favoritedAt'] = time();
 
         // Insert into favorites
-        $insert = $trippFav->insertOne($propertyArr);
+        $insert = $scillarFav->insertOne($propertyArr);
 
         // Publish real-time update via Ably
         $channel->publish("favorite", [
@@ -97,7 +97,7 @@
         }
 
         // Delete favorite by listingId + userId
-        $delete = $trippFav->deleteOne([
+        $delete = $scillarFav->deleteOne([
             "Listing_id" => $listingId,
             "userId" => $userId
         ]);
@@ -130,7 +130,7 @@
     // ================= GET: LIST FAVORITES =================
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         // Return all favorites for the user
-        $favorites = $trippFav->find([
+        $favorites = $scillarFav->find([
             "userId" => $userId
         ], ['sort' => ['favoritedAt' => -1]]);
 

@@ -23,7 +23,7 @@
         }
 
         // Fetch the property
-        $stay = $trippListing->findOne([
+        $stay = $scillarListing->findOne([
             'Listing_id' => $id
         ]);
 

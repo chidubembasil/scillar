@@ -15,7 +15,7 @@
     }
 
     // --- Update all new notifications to read ---
-    $trippNotifications->updateMany(
+    $scillarNotifications->updateMany(
         ['user_id' => $userId, 'status' => 'new'],
         ['$set' => ['status' => 'read']]
     );

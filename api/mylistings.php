@@ -59,7 +59,7 @@
         ];
 
         // Insert to database
-        $insertResult = $trippListing->insertOne($listing);
+        $insertResult = $scillarListing->insertOne($listing);
 
         // Add inserted ID
         $listing["_id"] = $insertResult->getInsertedId();
@@ -85,13 +85,13 @@
 
         if ($userId) {
             // Only this user's listings
-            $listings = $trippListing->find(
+            $listings = $scillarListing->find(
                 ["userId" => $userId],
                 ["sort" => ["_id" => -1]]
             );
         } else {
             // All listings
-            $listings = $trippListing->find(
+            $listings = $scillarListing->find(
                 [],
                 ["sort" => ["_id" => -1]]
             );

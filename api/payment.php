@@ -38,7 +38,7 @@
     }
 
     // Fetch property
-    $property = $trippListing->findOne(["_id" => $propertyId]);
+    $property = $scillarListing->findOne(["_id" => $propertyId]);
 
     if (!$property) {
         echo json_encode(["status" => "error", "message" => "Property not found"]);
@@ -54,7 +54,7 @@
 
     // Create payload
     $payload = [
-        "tx_ref" => "TRIPP_" . uniqid(),
+        "tx_ref" => "scillar_" . uniqid(),
         "amount" => $amount,
         "currency" => $currency,
         "redirect_url" => $REDIRECT_URL,
@@ -62,7 +62,7 @@
             "email" => $userEmail
         ],
         "customizations" => [
-            "title" => "Tripp Property Payment",
+            "title" => "scillar Property Payment",
             "description" => "Payment for property: " . ($property["title"] ?? "Real Estate Deal")
         ],
         "subaccounts" => [
@@ -99,7 +99,7 @@
     $paymentLink = $res["data"]["link"];
 
     // Insert transaction
-    $trippTransaction->insertOne([
+    $scillarTransaction->insertOne([
         "tx_ref" => $payload["tx_ref"],
         "propertyId" => $propertyId,
         "ownerId" => $ownerId,
@@ -130,22 +130,22 @@
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom("yourgmail@gmail.com", "Tripp Real Estate");
+        $mail->setFrom("yourgmail@gmail.com", "scillar Real Estate");
         $mail->addAddress($userEmail);
 
         $mail->isHTML(true);
-        $mail->Subject = "Your Tripp Payment Link & Transaction Details";
+        $mail->Subject = "Your scillar Payment Link & Transaction Details";
 
         $mail->Body = "
             <h2>Your Payment Details</h2>
-            <p>Thank you for choosing Tripp.</p>
+            <p>Thank you for choosing scillar.</p>
             <p><strong>Property:</strong> {$property['title']}</p>
             <p><strong>Amount:</strong> {$currency} {$amount}</p>
             <p><strong>Type:</strong> {$type}</p>
             <p><strong>Transaction Reference:</strong> {$payload['tx_ref']}</p>
             <p><a href='$paymentLink'>Click here to complete your payment</a></p>
             <br>
-            <p>Regards,<br>Tripp Team</p>
+            <p>Regards,<br>scillar Team</p>
         ";
 
         $mail->send();

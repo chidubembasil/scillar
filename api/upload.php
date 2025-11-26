@@ -107,7 +107,7 @@
         }
 
         // --- INSERT INTO MONGODB ---
-        $upload = $trippProperty->insertOne([
+        $upload = $scillarProperty->insertOne([
             "Listing_id"    => $listingId,
             "title"         => $propTitle,
             "type"          => $ListingType,

@@ -2,7 +2,7 @@
     session_start();
     include "config.php";
     
-    $cursor = $trippListing->aggregate([
+    $cursor = $scillarListing->aggregate([
     [
         '$lookup' => [
             'from' => 'users',           // collection to join

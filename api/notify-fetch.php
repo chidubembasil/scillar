@@ -17,7 +17,7 @@
     }
 
     // --- Fetch notifications ---
-    $cursor = $trippNotifications->find(
+    $cursor = $scillarNotifications->find(
         ['user_id' => $userId],
         ['sort' => ['created_at' => -1]]
     );
