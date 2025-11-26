@@ -1,5 +1,9 @@
 <?php
+    session_start();
     header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
     $apiKey = "AIzaSyAxDALFH6DeB1jt4WauABmOfURUOC4TDIQ";
 

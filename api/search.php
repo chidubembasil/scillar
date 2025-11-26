@@ -1,5 +1,12 @@
 <?php
+    session_start();
     include "config.php";
+
+    header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
     use MongoDB\BSON\Regex; // make sure this is included
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){

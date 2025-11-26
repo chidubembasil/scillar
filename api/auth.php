@@ -1,5 +1,12 @@
 <?php
+
+    session_start();
     include 'configs.php';
+
+    header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -120,6 +127,8 @@
                     "name" => $user["name"]
                 ]
             ]);
+
+           
             exit;
         }
 
@@ -151,6 +160,11 @@
                 "email" => $email,
                 "password" => password_hash($password, PASSWORD_DEFAULT)
             ]);
+
+            // Set session after registration
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_name'] = $name;
 
             echo json_encode([
                 "status" => "success",
@@ -206,6 +220,8 @@
 
         exit;
     }
+
+    
 
 
     // No need for final echo with $success/$error

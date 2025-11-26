@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: *");
@@ -12,67 +13,71 @@
 
     switch ($endpoint) {
         case "auth":
-            require "api/auth.php";
+            header("Location: api/auth.php");
             break;
 
         case "listing":
-            require "api/listing.php";
+            header("Location: api/listing.php");
             break;
 
         case "upload":
-            require "api/upload.php";
+            header("Location: api/upload.php");
             break;
 
         case "mylistings":
-            require "api/mylistings.php";
+            header("Location: api/mylistings.php");
             break;
 
         case "stay":
-            require "api/stay.php";
+            header("Location: api/stay.php");
             break;   
             
         case "rent":
-            require "api/rent.php";
+            header("Location: api/rent.php");
             break;    
 
         case "buy":
-            require "api/buy.php";
+            header("Location: api/buy.php");
             break;    
         
         case "invest":
-            require "api/invest.php";
+            header("Location: api/invest.php");
             break; 
             
         case "favorite":
-            require "api/favorite.php";
+            header("Location: api/favorite.php");
             break;   
             
         case "mark":
-            require "api/markAsRead.php";
+            header("Location: api/markAsRead.php");
             break;    
         
         case "create":
-            require "api/notify-create.php";
+            header("Location: api/notify-create.php");
             break;    
 
         case "search":
-            require "api/rent.php";
+            header("Location: api/search.php");
             break;   
             
         case "fetch":
-            require "api/notify-fetch.php";
+            header("Location: api/notify-fetch.php");
+            
             break;   
             
         case "kyc":
-            require "api/kyc.php";
+            header("Location: api/kyc.php");
+           
             break; 
             
         case "nessa":
-            require "api/Nessa-Ai.php";
+            header("Location: api/Nessa-Ai.php");
+            
             break;        
 
         case "payment":
-            require "api/payment.php";
+            header("Location: api/payment.php");
+            
             break;    
 
          

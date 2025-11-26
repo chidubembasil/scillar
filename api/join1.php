@@ -1,6 +1,7 @@
 <?php
-
+    session_start();
     include "config.php";
+    
     $cursor = $trippListing->aggregate([
     [
         '$lookup' => [

@@ -1,5 +1,11 @@
 <?php
+    session_start();
     require "../vendor/autoload.php";
+
+    header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
     // Get environment variables
     $username = getenv('MONGO_USERNAME');
