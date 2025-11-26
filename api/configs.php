@@ -1,6 +1,7 @@
 <?php
-    session_start();
+    /* session_start(); */
     require "../vendor/autoload.php";
+    use Ably\AblyRest;
 
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
