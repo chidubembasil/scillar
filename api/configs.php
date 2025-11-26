@@ -7,43 +7,44 @@
     header("Access-Control-Allow-Headers: *");
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-   /*  // Get environment variables
-    $username = getenv('MONGO_USERNAME');
-    $password = getenv('MONGO_PASSWORD');
+    // === MongoDB Credentials (Hardcoded for now) ===
+    // Replace these later with environment variables
+    $mongoUser = "okoro9115_db_user";
+    $mongoPass = "xihim7jikYx55APu";  // IMPORTANT: Reset this since it's exposed publicly!
 
-    // Debug: check if PHP can read them
-    var_dump($username);
-    var_dump($password); */
+    // Encode password (required if it contains special chars)
+    $mongoPassEncoded = urlencode($mongoPass);
 
-    // URL-encode password in case it contains special characters
-    $encodedPassword = urlencode($password);
+    // === Build Connection URI properly ===
+    $mongoUri = "mongodb+srv://{$mongoUser}:{$mongoPassEncoded}@scillar.2y1ablb.mongodb.net/?retryWrites=true&w=majority&appName=scillar";
 
-    // Connect to MongoDB
-    $client = new MongoDB\Client(
-        "mongodb+srv://okoro9115_db_user:xihim7jikYx55APu@scillar.2y1ablb.mongodb.net/"
-    );
-
-    // Select database and collections
-    $scillar = $client->scillar;
-    $scillarUser = $scillar->users;
-    $scillarTransaction = $scillar->transactions;
-    $scillarListing = $scillar->listing;
-    $scillarFav = $scillar->favourite;
-    $scillarNotifications = $scillar ->notification;
-    $scillarKyc = $scillar->kyc;
-
+    // === Connect ===
     try {
-        $client->listDatabases();
-        echo "Connected to MongoDB successfully!";
+        $client = new MongoDB\Client($mongoUri);
+
+        // Select database and collections
+        $db = $client->scillar;
+        $scillarUser = $db->users;
+        $scillarTransaction = $db->transactions;
+        $scillarListing = $db->listing;
+        $scillarFav = $db->favourite;
+        $scillarNotifications = $db->notification;
+        $scillarKyc = $db->kyc;
+
     } catch (Exception $e) {
-        echo "Connection failed: " . $e->getMessage();
+        echo json_encode([
+            "status" => "error",
+            "message" => "MongoDB connection failed",
+            "error" => $e->getMessage()
+        ]);
+        exit;
     }
 
-    define('FLW_SECRET_KEY', 'LhQ6zjwLvbLJXxPEWNtyoCXYusAGOkQE');
-    // Define your two subaccount IDs
- /*     define('SUBACCOUNT_PERCENTAGE', 'RS_A83B219334DD5EC356BA7DB99E38933F'); // for buy (percentage split)
-        define('SUBACCOUNT_FLAT', 'RS_08C55A89BC9509676E1A38FC95B4BC93'); // for rent/invest/stay (flat split)
- */
+    // === Flutterwave Secret Key ===
+    define("FLW_SECRET_KEY", "LhQ6zjwLvbLJXxPEWNtyoCXYusAGOkQE");
 
-        define('ABLY_API_KEY', 'RSTb1g.Dg9vCg:IYEo1Otd0e1OLvKynv_go5Ma3LvCEa2R1ln7KLwhRk8');
-        $ably = new AblyRest(ABLY_API_KEY);
+    // === Ably ===
+    define('ABLY_API_KEY', 'RSTb1g.Dg9vCg:IYEo1Otd0e1OLvKynv_go5Ma3LvCEa2R1ln7KLwhRk8');
+    $ably = new Ably\AblyRest(ABLY_API_KEY);
+
+
