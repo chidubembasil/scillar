@@ -221,7 +221,54 @@
         exit;
     }
 
-    
+    // ================
+    // 4️⃣ DELETE ACCOUNT
+    // ================
+    if ($mode === "delete") {
+
+        if (empty($email) || empty($password)) {
+            echo json_encode(["status" => "error", "message" => "Email & password required to delete account"]);
+            exit;
+        }
+
+        $user = $scillarUser->findOne(["email" => $email]);
+
+        if (!$user) {
+            echo json_encode(["status" => "error", "message" => "User not found"]);
+            exit;
+        }
+
+        if (!password_verify($password, $user['password'])) {
+            echo json_encode(["status" => "error", "message" => "Invalid password"]);
+            exit;
+        }
+
+        // Delete user from MongoDB
+        $deleteResult = $scillarUser->deleteOne(["email" => $email]);
+
+        if ($deleteResult->getDeletedCount() > 0) {
+            // Destroy session if this user is logged in
+            if (isset($_SESSION['user_email']) && $_SESSION['user_email'] === $email) {
+                session_unset();
+                session_destroy();
+            }
+
+            echo json_encode([
+                "status" => "success",
+                "message" => "Account deleted successfully"
+            ]);
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Failed to delete account"
+            ]);
+        }
+
+        exit;
+    }
 
 
-    // No need for final echo with $success/$error
+        
+
+
+        
