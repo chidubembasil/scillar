@@ -1,86 +1,81 @@
 <?php
-    session_start();
-    header("Content-Type: application/json");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+session_start();
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-    $method = $_SERVER["REQUEST_METHOD"];
-    $uri = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
+$method = $_SERVER["REQUEST_METHOD"];
+$uri = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
 
-    // Example: /api/users → ["api", "users"]
-    $endpoint = isset($uri[1]) ? $uri[1] : null;
+$endpoint = isset($uri[1]) ? $uri[1] : null;
 
-    switch ($endpoint) {
-        case "auth":
-            header("Location: api/auth.php");
-            break;
+switch ($endpoint) {
 
-        case "listing":
-            header("Location: api/listing.php");
-            break;
+    case "auth":
+        require "api/auth.php";
+        break;
 
-        case "upload":
-            header("Location: api/upload.php");
-            break;
+    case "listing":
+        require "api/listing.php";
+        break;
 
-        case "mylistings":
-            header("Location: api/mylistings.php");
-            break;
+    case "upload":
+        require "api/upload.php";
+        break;
 
-        case "stay":
-            header("Location: api/stay.php");
-            break;   
-            
-        case "rent":
-            header("Location: api/rent.php");
-            break;    
+    case "mylistings":
+        require "api/mylistings.php";
+        break;
 
-        case "buy":
-            header("Location: api/buy.php");
-            break;    
-        
-        case "invest":
-            header("Location: api/invest.php");
-            break; 
-            
-        case "favorite":
-            header("Location: api/favorite.php");
-            break;   
-            
-        case "mark":
-            header("Location: api/markAsRead.php");
-            break;    
-        
-        case "create":
-            header("Location: api/notify-create.php");
-            break;    
+    case "stay":
+        require "api/stay.php";
+        break;
 
-        case "search":
-            header("Location: api/search.php");
-            break;   
-            
-        case "fetch":
-            header("Location: api/notify-fetch.php");
-            
-            break;   
-            
-        case "kyc":
-            header("Location: api/kyc.php");
-           
-            break; 
-            
-        case "nessa":
-            header("Location: api/Nessa-Ai.php");
-            
-            break;        
+    case "rent":
+        require "api/rent.php";
+        break;
 
-        case "payment":
-            header("Location: api/payment.php");
-            
-            break;    
+    case "buy":
+        require "api/buy.php";
+        break;
 
-         
-        default:
-            echo json_encode(["error" => "Invalid endpoint"]);
-    }
+    case "invest":
+        require "api/invest.php";
+        break;
+
+    case "favorite":
+        require "api/favorite.php";
+        break;
+
+    case "mark":
+        require "api/markAsRead.php";
+        break;
+
+    case "create":
+        require "api/notify-create.php";
+        break;
+
+    case "search":
+        require "api/search.php";
+        break;
+
+    case "fetch":
+        require "api/notify-fetch.php";
+        break;
+
+    case "kyc":
+        require "api/kyc.php";
+        break;
+
+    case "nessa":
+        require "api/Nessa-Ai.php";
+        break;
+
+    case "payment":
+        require "api/payment.php";
+        break;
+
+    default:
+        echo json_encode(["error" => "Invalid endpoint"]);
+}
